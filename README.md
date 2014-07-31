@@ -12,10 +12,10 @@ npm install --save-dev ember-cli-compass-compiler
 
 ### Requirements
 
-[`compass`](https://github.com/Compass/compass) should be installed on your machine in order for this addon to work.
+`compass` should be installed on your machine in order for this addon to work.
 
-Install [`sass-css-importer`](https://github.com/chriseppstein/sass-css-importer) Ruby gem also that allows import of other sass 
-files into your main sass file.
+Install `sass-css-importer` Ruby gem also that allows import of css files 
+into your main sass file.
 
 To install `compass`, run:
 
@@ -39,6 +39,7 @@ with `ember build` or `ember serve` commands.
 ### References
 
 * [compass](http://compass-style.org/)
+* [sass-css-importer](https://github.com/chriseppstein/sass-css-importer)
 * [broccoli-compass](https://github.com/g13013/broccoli-compass)
 * [broccoli](https://github.com/broccolijs/broccoli)
 
