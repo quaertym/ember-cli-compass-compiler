@@ -1,6 +1,6 @@
 ## ember-cli-compass-compiler
 
-This addon adds compass compiler for Ember CLI.
+This addon adds [Compass](http://compass-style.org/) compiler for [Ember CLI](http://www.ember-cli.com/).
 
 ### Installation
 
