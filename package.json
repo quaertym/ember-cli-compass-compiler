@@ -9,6 +9,13 @@
   "keywords": [
     "ember-addon"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quaertym/ember-cli-compass-compiler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quaertym/ember-cli-compass-compiler/issues"
+  },
   "author": "Emre Unal",
   "license": "MIT",
   "dependencies": {
