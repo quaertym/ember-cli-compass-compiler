@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-compass-compiler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Ember CLI Compass Compiler",
   "main": "index.js",
   "scripts": {
