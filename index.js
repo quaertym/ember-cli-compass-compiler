@@ -15,14 +15,15 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   // broccoli-compass doesn't like leading slashes
   if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
 
-  var options     = this.options;
-  var mainFile    = options.mainFile    || (this.appName + '.' + this.ext);
-  var outputStyle = options.outputStyle || 'compressed'; // or expanded
-  var sassDir     = options.sassDir     || inputPath;
-  var cssDir      = options.cssDir      || outputPath;
-  var imagesDir   = options.imagesDir   || 'images';
-  var fontsDir    = options.fontsDir    || 'fonts';
-  var require     = options.require     || 'sass-css-importer'; // this allows us to import CSS files with @import("CSS:path")
+  var options        = this.options;
+  var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
+  var outputStyle    = options.outputStyle    || 'compressed'; // or expanded
+  var sassDir        = options.sassDir        || inputPath;
+  var cssDir         = options.cssDir         || outputPath;
+  var imagesDir      = options.imagesDir      || 'images';
+  var fontsDir       = options.fontsDir       || 'fonts';
+  var require        = options.require        || 'sass-css-importer'; // this allows us to import CSS files with @import("CSS:path")
+  var compassCommand = options.compassCommand || 'compass';
 
   var compassOptions = {
     outputStyle: outputStyle,
@@ -30,7 +31,8 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
     sassDir: sassDir,
     imagesDir: imagesDir,
     fontsDir: fontsDir,
-    cssDir: cssDir
+    cssDir: cssDir,
+    compassCommand: compassCommand
   };
 
   tree = mergeTrees([tree, 'public'], {
