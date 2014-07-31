@@ -19,9 +19,11 @@ with `ember build` or `ember serve` commands.
 
 ### References
 
-[Compass](http://compass-style.org/)
-[broccoli](https://github.com/broccolijs/broccoli)
-[broccoli-compass](https://github.com/g13013/broccoli-compass)
+* [Compass](http://compass-style.org/)
+* [broccoli](https://github.com/broccolijs/broccoli)
+* [broccoli-compass](https://github.com/g13013/broccoli-compass)
+
+This work is build based on the [gist](https://gist.github.com/wagenet/79b804eb943b9f3d7594) by @wagenet
 
 ### Other
 
