@@ -1,0 +1,18 @@
+{
+  "name": "ember-cli-compass-compiler",
+  "version": "0.0.1",
+  "description": "Ember CLI Compass Compiler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ember-addon"
+  ],
+  "author": "Emre Unal",
+  "license": "MIT",
+  "dependencies": {
+    "broccoli-compass": "0.0.7",
+    "broccoli-merge-trees": "^0.1.4"
+  }
+}
