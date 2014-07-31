@@ -18,6 +18,7 @@
   },
   "author": "Emre Unal",
   "license": "MIT",
+  "readmeFile": "README.md",
   "dependencies": {
     "broccoli-compass": "0.0.7",
     "broccoli-merge-trees": "^0.1.4"
