@@ -1,6 +1,6 @@
 ## ember-cli-compass-compiler
 
-This addon adds [Compass](http://compass-style.org/) compiler for [Ember CLI](http://www.ember-cli.com/).
+This addon adds [compass](http://compass-style.org/) compiler for [Ember CLI](http://www.ember-cli.com/).
 
 ### Installation
 
@@ -8,6 +8,25 @@ In your Ember CLI app (>= v0.0.37) run the following:
 
 ```bash
 npm install --save-dev ember-cli-compass-compiler
+```
+
+### Requirements
+
+[`compass`](https://github.com/Compass/compass) should be installed on your machine in order for this addon to work.
+
+Install [`sass-css-importer`](https://github.com/chriseppstein/sass-css-importer) Ruby gem also that allows import of other sass 
+files into your main sass file.
+
+To install `compass`, run:
+
+```bash
+gem install compass
+```
+
+To install `sass-css-importer`, run:
+
+```bash
+gem install --pre sass-css-importer
 ```
 
 ### Usage
@@ -19,7 +38,7 @@ with `ember build` or `ember serve` commands.
 
 ### References
 
-* [Compass](http://compass-style.org/)
+* [compass](http://compass-style.org/)
 * [broccoli-compass](https://github.com/g13013/broccoli-compass)
 * [broccoli](https://github.com/broccolijs/broccoli)
 
