@@ -36,6 +36,18 @@ After installation everything should work automatically.
 A file named `appname.scss` in your `app/styles` directory should be compiled into `appname.css` 
 with `ember build` or `ember serve` commands.
 
+
+To override default options of compass compiler, do the following in your Brocfile:
+
+```javascript
+var app = new EmberApp({
+  compassOptions: {
+    outputStyle: 'expanded',
+    require: ['sass-css-importer', 'susy']
+  }
+});
+```
+
 ### References
 
 * [compass](http://compass-style.org/)
