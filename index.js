@@ -24,6 +24,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   var fontsDir       = options.fontsDir       || 'fonts';
   var require        = options.require        || 'sass-css-importer'; // this allows us to import CSS files with @import("CSS:path")
   var compassCommand = options.compassCommand || 'compass';
+  var importPath     = options.importPath     || [];
 
   var compassOptions = {
     outputStyle: outputStyle,
@@ -32,7 +33,8 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
     imagesDir: imagesDir,
     fontsDir: fontsDir,
     cssDir: cssDir,
-    compassCommand: compassCommand
+    compassCommand: compassCommand,
+    importPath: importPath
   };
 
   tree = mergeTrees([tree, 'public'], {
