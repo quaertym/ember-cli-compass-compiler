@@ -42,7 +42,6 @@ var app = new EmberApp({
 ### References
 
 * [compass](http://compass-style.org/)
-* [sass-css-importer](https://github.com/chriseppstein/sass-css-importer)
 * [broccoli-compass](https://github.com/g13013/broccoli-compass)
 * [broccoli](https://github.com/broccolijs/broccoli)
 
