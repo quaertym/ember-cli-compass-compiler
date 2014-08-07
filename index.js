@@ -22,19 +22,17 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   var cssDir         = options.cssDir         || outputPath;
   var imagesDir      = options.imagesDir      || 'images';
   var fontsDir       = options.fontsDir       || 'fonts';
-  var require        = options.require;
   var compassCommand = options.compassCommand || 'compass';
-  var importPath     = options.importPath     || [];
 
   var compassOptions = {
     outputStyle: outputStyle,
-    require: require,
+    require: options.require,
+    importPath: options.importPath,
     sassDir: sassDir,
     imagesDir: imagesDir,
     fontsDir: fontsDir,
     cssDir: cssDir,
-    compassCommand: compassCommand,
-    importPath: importPath
+    compassCommand: compassCommand
   };
 
   tree = mergeTrees([tree, 'public'], {
