@@ -20,7 +20,7 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
-    "broccoli-compass": "0.0.7",
+    "broccoli-compass": "0.0.8",
     "broccoli-merge-trees": "^0.1.4"
   }
 }
