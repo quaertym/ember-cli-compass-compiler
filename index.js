@@ -14,6 +14,7 @@ function CompassCompilerPlugin(options, appName) {
 CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   // broccoli-compass doesn't like leading slashes
   if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
+  if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
 
   var options        = this.options;
   var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
