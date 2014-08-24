@@ -17,6 +17,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
 
   var options        = this.options;
   var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
+  var relativeAssets = options.relativeAssets !== undefined ? options.relativeAssets : true;
   var outputStyle    = options.outputStyle    || 'compressed'; // or expanded
   var sassDir        = options.sassDir        || inputPath;
   var cssDir         = options.cssDir         || outputPath;
@@ -25,6 +26,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   var compassCommand = options.compassCommand || 'compass';
 
   var compassOptions = {
+    relativeAssets: relativeAssets,
     outputStyle: outputStyle,
     require: options.require,
     importPath: options.importPath,
