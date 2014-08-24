@@ -4,10 +4,10 @@
 var mergeTrees  = require('broccoli-merge-trees');
 var compileCompass = require('broccoli-compass');
 
-function CompassCompilerPlugin(options, appName) {
+function CompassCompilerPlugin(app) {
   this.name    = 'ember-cli-compass-compiler';
-  this.appName = appName;
-  this.options = options || {};
+  this.app = app;
+  this.appName = app.name;
   this.ext     = 'scss';
 }
 
@@ -15,7 +15,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   // broccoli-compass doesn't like leading slashes
   if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
 
-  var options        = this.options;
+  var options        = this.app.options.compassOptions;
   var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
   var outputStyle    = options.outputStyle    || 'compressed'; // or expanded
   var sassDir        = options.sassDir        || inputPath;
@@ -28,6 +28,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
     outputStyle: outputStyle,
     require: options.require,
     importPath: options.importPath,
+    httpPath: options.httpPath,
     sassDir: sassDir,
     imagesDir: imagesDir,
     fontsDir: fontsDir,
@@ -54,7 +55,7 @@ EmberCLICompassCompiler.prototype.treeFor = function treeFor() {
 EmberCLICompassCompiler.prototype.included = function included(app) {
   this.app     = app;
   var registry = this.app.registry;
-  var plugin   = new CompassCompilerPlugin(this.app.options.compassOptions, this.app.name);
+  var plugin   = new CompassCompilerPlugin(app);
   registry.add('css', plugin);
 };
 
