@@ -6,7 +6,7 @@ var compileCompass = require('broccoli-compass');
 
 function CompassCompilerPlugin(app) {
   this.name    = 'ember-cli-compass-compiler';
-  this.app = app;
+  this.app     = app;
   this.appName = app.name;
   this.ext     = 'scss';
 }
@@ -16,7 +16,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
   if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
 
-  var options        = this.app.options.compassOptions;
+  var options        = this.app.options.compassOptions || {};
   var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
   var relativeAssets = options.relativeAssets !== undefined ? options.relativeAssets : true;
   var outputStyle    = options.outputStyle    || 'compressed'; // or expanded
