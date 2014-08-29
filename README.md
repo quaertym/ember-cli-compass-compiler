@@ -20,6 +20,15 @@ To install `compass`, run:
 gem install compass
 ```
 
+> Note: Now that your ember-cli project relies on ruby code, it is highly recommended
+  that you document your gem dependencies in a Gemfile manifest. Bundle will also 
+  ensure the proper gems are used during Broccoli's build process.
+  
+```ruby
+# Gemfile
+gem 'compass', '~>1.0'
+```
+
 ### Usage
 
 After installation everything should work automatically.
