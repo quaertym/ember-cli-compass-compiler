@@ -21,7 +21,7 @@ gem install compass
 ```
 
 > Note: Now that your ember-cli project relies on ruby code, it is highly recommended
-  that you document your gem dependencies in a Gemfile manifest. Bundle will also 
+  that you document your gem dependencies in a Gemfile manifest. Using bundler will also 
   ensure the proper gems are used during Broccoli's build process.
   
 ```ruby
