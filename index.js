@@ -3,6 +3,7 @@
 
 var mergeTrees  = require('broccoli-merge-trees');
 var compileCompass = require('broccoli-compass');
+var merge = require('lodash-node/modern/objects/merge');
 
 function CompassCompilerPlugin(app) {
   this.name    = 'ember-cli-compass-compiler';
@@ -16,28 +17,23 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
   if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
   if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
 
-  var options        = this.app.options.compassOptions || {};
-  var mainFile       = options.mainFile       || (this.appName + '.' + this.ext);
-  var relativeAssets = options.relativeAssets !== undefined ? options.relativeAssets : true;
-  var outputStyle    = options.outputStyle    || 'compressed'; // or expanded
-  var sassDir        = options.sassDir        || inputPath;
-  var cssDir         = options.cssDir         || outputPath;
-  var imagesDir      = options.imagesDir      || 'images';
-  var fontsDir       = options.fontsDir       || 'fonts';
-  var compassCommand = options.compassCommand || 'compass';
+  var options  = this.app.options.compassOptions || {};
+  var mainFile = options.mainFile || (this.appName + '.' + this.ext);
 
-  var compassOptions = {
-    relativeAssets: relativeAssets,
-    outputStyle: outputStyle,
-    require: options.require,
-    importPath: options.importPath,
-    httpPath: options.httpPath,
-    sassDir: sassDir,
-    imagesDir: imagesDir,
-    fontsDir: fontsDir,
-    cssDir: cssDir,
-    compassCommand: compassCommand
+  var defaultOptions = {
+    relativeAssets: true,
+    sassDir: inputPath,
+    cssDir: outputPath,
+    outputStyle: 'compressed',
+    imagesDir: 'images',
+    fontsDir: 'fonts',
+    compassCommand: 'compass'
   };
+
+  var compassOptions = merge(defaultOptions, options);
+  if(compassOptions.mainFile !== undefined) {
+    delete compassOptions.mainFile;
+  }
 
   tree = mergeTrees([tree, 'public'], {
     description: 'TreeMerger (stylesAndVendorAndPublic)'
