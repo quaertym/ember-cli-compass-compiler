@@ -7,7 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-cli",
+    "ember",
+    "compass",
+    "scss",
+    "sass",
+    "css",
+    "compile",
+    "preprocessor",
+    "style"
   ],
   "repository": {
     "type": "git",
