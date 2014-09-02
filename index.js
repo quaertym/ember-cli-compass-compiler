@@ -19,8 +19,10 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
 
   var options  = this.app.options.compassOptions || {};
   var mainFile = options.mainFile || (this.appName + '.' + this.ext);
+  var files    = [inputPath + '/' + mainFile];
 
   var defaultOptions = {
+    files: files,
     relativeAssets: true,
     sassDir: inputPath,
     cssDir: outputPath,
@@ -39,7 +41,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
     description: 'TreeMerger (stylesAndVendorAndPublic)'
   });
 
-  return compileCompass(tree, inputPath + '/' + mainFile, compassOptions);
+  return compileCompass(tree, compassOptions);
 };
 
 function EmberCLICompassCompiler(project) {
