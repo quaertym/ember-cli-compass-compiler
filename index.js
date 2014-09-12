@@ -1,63 +1,37 @@
-/* global require, module */
-'use strict';
+var compile    = require('./compiler');
+var merge      = require('lodash-node/modern/objects/merge');
+var mergeTrees = require('broccoli-merge-trees');
+// var pickFiles  = require('broccoli-static-compiler');
 
-var mergeTrees  = require('broccoli-merge-trees');
-var compileCompass = require('broccoli-compass');
-var merge = require('lodash-node/modern/objects/merge');
+module.exports = {
+  name: 'ember-cli-compass-compiler',
+  included: function(app) {
+    this._super.included.apply(this, arguments);
 
-function CompassCompilerPlugin(app) {
-  this.name    = 'ember-cli-compass-compiler';
-  this.app     = app;
-  this.appName = app.name;
-  this.ext     = 'scss';
-}
+    app.registry.add('css', {
+      name: 'ember-cli-compass-compiler',
+      ext: ['scss', 'sass'],
+      toTree: function(tree, inputPath, outputPath) {
+        if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
+        if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
 
-CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath) {
-  // broccoli-compass doesn't like leading slashes
-  if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
-  if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
-
-  var options  = this.app.options.compassOptions || {};
-  var mainFile = options.mainFile || (this.appName + '.' + this.ext);
-  var files    = [inputPath + '/' + mainFile];
-
-  var defaultOptions = {
-    files: files,
-    relativeAssets: true,
-    sassDir: inputPath,
-    cssDir: outputPath,
-    outputStyle: 'compressed',
-    imagesDir: 'images',
-    fontsDir: 'fonts',
-    compassCommand: 'compass'
-  };
-
-  var compassOptions = merge(defaultOptions, options);
-  if(compassOptions.mainFile !== undefined) {
-    delete compassOptions.mainFile;
+        var options = app.options.compassOptions || {};
+        var defaultOptions = {
+          sassDir: inputPath,
+          cssDir: outputPath,
+          outputStyle: 'compressed',
+          compassCommand: 'compass'
+        };
+        var compassOptions = merge(defaultOptions, options);
+        // var compassTree = pickFiles('app/styles', {
+        //   srcDir: '/',
+        //   destDir: 'assets'
+        // });
+        tree = mergeTrees([tree, 'public'], {
+          description: 'TreeMerger (stylesAndPublic)'
+        });
+        return compile(tree, compassOptions);
+      }
+    });
   }
-
-  tree = mergeTrees([tree, 'public'], {
-    description: 'TreeMerger (stylesAndVendorAndPublic)'
-  });
-
-  return compileCompass(tree, compassOptions);
 };
-
-function EmberCLICompassCompiler(project) {
-  this.project = project;
-  this.name    = 'Ember CLI Compass Compiler';
-}
-
-EmberCLICompassCompiler.prototype.treeFor = function treeFor() {
-
-};
-
-EmberCLICompassCompiler.prototype.included = function included(app) {
-  this.app     = app;
-  var registry = this.app.registry;
-  var plugin   = new CompassCompilerPlugin(app);
-  registry.add('css', plugin);
-};
-
-module.exports = EmberCLICompassCompiler;
