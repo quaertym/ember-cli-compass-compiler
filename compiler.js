@@ -10,11 +10,11 @@ function CompassCompiler(inputTree, options) {
   if (!(this instanceof CompassCompiler)) return new CompassCompiler(inputTree, options);
 
   this.inputTree = inputTree;
-  this.compass = new Compass(options);
+  this.compass = new Compass();
 }
 
 CompassCompiler.prototype.updateCache = function(srcDir, destDir) {
-  return this.compass.compile(srcDir, destDir).then(function(tree) {
+  return this.compass.compile(srcDir, destDir, this.options).then(function(tree) {
     return tree;
   });
 };

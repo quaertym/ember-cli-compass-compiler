@@ -6,26 +6,23 @@ var path  = require('path');
 var RSVP  = require('rsvp');
 var sys   = require('sys');
 
-var ignoredOptions = [
-  'compassCommand'
-];
+function Compass() {
 
-function Compass(options) {
-  this.options = options || {};
 }
 
-Compass.prototype.generateCommand = function() {
-  var args = dargs(this.options, ignoredOptions);
-  var command = [this.options.compassCommand, 'compile'].concat(args).join(' ');
+Compass.prototype.generateCommand = function(options) {
+  var ignoredOptions = ['compassCommand'];
+  var args = dargs(options, ignoredOptions);
+  var command = [options.compassCommand, 'compile'].concat(args).join(' ');
   return command;
 };
 
-Compass.prototype.compile = function(srcDir, destDir) {
+Compass.prototype.compile = function(srcDir, destDir, options) {
 
-  var cssDir  = path.join(destDir, this.options.cssDir);
-  merge(this.options, { cssDir: cssDir });
+  var cssDir  = path.join(destDir, 'assets');
+  merge(options, { cssDir: cssDir });
 
-  var command = this.generateCommand();
+  var command = this.generateCommand(options);
 
   var promise = new RSVP.Promise(function(resolve, reject) {
     exec(command, function(error, stdout, stderr) {
