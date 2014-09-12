@@ -26,10 +26,6 @@ Compass.prototype.compile = function(srcDir, destDir) {
   merge(this.options, { cssDir: cssDir });
 
   var command = this.generateCommand();
-  
-  // var execOptions = {
-  //   cwd: srcDir
-  // };
 
   var promise = new RSVP.Promise(function(resolve, reject) {
     exec(command, function(error, stdout, stderr) {

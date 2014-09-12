@@ -1,7 +1,6 @@
 var compile    = require('./compiler');
 var merge      = require('lodash-node/modern/objects/merge');
 var mergeTrees = require('broccoli-merge-trees');
-// var pickFiles  = require('broccoli-static-compiler');
 
 module.exports = {
   name: 'ember-cli-compass-compiler',
@@ -23,10 +22,6 @@ module.exports = {
           compassCommand: 'compass'
         };
         var compassOptions = merge(defaultOptions, options);
-        // var compassTree = pickFiles('app/styles', {
-        //   srcDir: '/',
-        //   destDir: 'assets'
-        // });
         tree = mergeTrees([tree, 'public'], {
           description: 'TreeMerger (stylesAndPublic)'
         });
