@@ -29,8 +29,9 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
-    "broccoli-compass": "0.1.1",
     "broccoli-merge-trees": "^0.1.4",
-    "lodash-node": "^2.4.1"
+    "dargs": "^2.0.3",
+    "lodash-node": "^2.4.1",
+    "rsvp": "^3.0.13"
   }
 }
