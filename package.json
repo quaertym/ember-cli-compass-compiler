@@ -29,6 +29,7 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
+    "broccoli-caching-writer": "^0.4.2",
     "broccoli-merge-trees": "^0.1.4",
     "dargs": "^2.0.3",
     "lodash-node": "^2.4.1",
