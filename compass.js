@@ -31,7 +31,7 @@ Compass.prototype.compile = function(srcDir, destDir, options) {
       }
 
       if (error) {
-        sys.print(error + EOL);
+        sys.print(stdout + EOL);
         reject(error);
       } else {
         resolve(cssDir);
