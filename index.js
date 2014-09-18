@@ -22,10 +22,7 @@ module.exports = {
           compassCommand: 'compass'
         };
         var compassOptions = merge(defaultOptions, options);
-        tree = mergeTrees([tree, 'public'], {
-          description: 'TreeMerger (stylesAndPublic)'
-        });
-        return compile(tree, compassOptions);
+        return compile(app.publicTree(), compassOptions);
       }
     });
   }
