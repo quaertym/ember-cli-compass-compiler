@@ -10,6 +10,12 @@ In your Ember CLI app (>= v0.0.37) run the following:
 npm install --save-dev ember-cli-compass-compiler
 ```
 
+> **Note:** This addon will compile your `.scss` files, in addition to making Compass's
+  libraries available to your project. This means you **do not** need additional broccoli libraries
+  for compiling sass, such as `broccoli-sass`.
+  
+> Be sure to remove all such libraries from your project when using `ember-cli-compass-compiler`.
+
 ### Requirements
 
 `compass` should be installed on your machine in order for this addon to work.
