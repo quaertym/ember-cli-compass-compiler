@@ -1,3 +1,7 @@
+## v0.0.15
+
+* Display compass errors if present [#19](https://github.com/quaertym/ember-cli-compass-compiler/pull/19)
+
 ## v0.0.14
 
 * Fixed EMFILE error. See below.
