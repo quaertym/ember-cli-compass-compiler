@@ -18,15 +18,17 @@ Compass.prototype.generateCommand = function(options) {
 };
 
 Compass.prototype.compile = function(srcDir, destDir, options) {
-
   var cssDir  = path.join(destDir, 'assets');
-  merge(options, { cssDir: cssDir });
+
+  merge(options, {
+    cssDir: cssDir
+  });
 
   var command = this.generateCommand(options);
 
-  var promise = new RSVP.Promise(function(resolve, reject) {
+  return new RSVP.Promise(function(resolve, reject) {
     exec(command, function(error, stdout, stderr) {
-      if(stderr) {
+      if (stderr) {
         sys.print(stderr + EOL);
       }
 
@@ -38,8 +40,6 @@ Compass.prototype.compile = function(srcDir, destDir, options) {
       }
     });
   });
-
-  return promise;
 };
 
 module.exports = Compass;

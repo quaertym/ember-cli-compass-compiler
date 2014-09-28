@@ -11,8 +11,13 @@ module.exports = {
       name: 'ember-cli-compass-compiler',
       ext: ['scss', 'sass'],
       toTree: function(tree, inputPath, outputPath) {
-        if (inputPath[0] === '/') { inputPath = inputPath.slice(1); }
-        if (outputPath[0] === '/') { outputPath = outputPath.slice(1); }
+        if (inputPath[0] === '/') {
+          inputPath = inputPath.slice(1);
+        }
+
+        if (outputPath[0] === '/') {
+          outputPath = outputPath.slice(1);
+        }
 
         var options = app.options.compassOptions || {};
         var defaultOptions = {
@@ -21,10 +26,12 @@ module.exports = {
           outputStyle: 'compressed',
           compassCommand: 'compass'
         };
+
         var compassOptions = merge(defaultOptions, options);
         tree = mergeTrees([tree, 'public'], {
           description: 'TreeMerger (stylesAndPublic)'
         });
+
         return compile(tree, compassOptions);
       }
     });

@@ -14,7 +14,5 @@ function CompassCompiler(inputTree, options) {
 }
 
 CompassCompiler.prototype.updateCache = function(srcDir, destDir) {
-  return this.compass.compile(srcDir, destDir, this.options).then(function(tree) {
-    return tree;
-  });
+  return this.compass.compile(srcDir, destDir, this.options);
 };
