@@ -1,4 +1,8 @@
-## v.0.0.16
+## v0.0.17
+
+* Avoid unnecessary compilation by compiling only when app/styles contents change
+
+## v0.0.16
 
 * Cleanup code
 
