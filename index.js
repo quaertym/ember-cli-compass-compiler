@@ -1,5 +1,6 @@
-var compile    = require('./compiler');
-var merge      = require('lodash-node/modern/objects/merge');
+var compile       = require('./compiler');
+var merge         = require('lodash-node/modern/objects/merge');
+var mergeTrees    = require('broccoli-merge-trees');
 
 module.exports = {
   name: 'ember-cli-compass-compiler',
@@ -22,11 +23,19 @@ module.exports = {
           sassDir: inputPath,
           cssDir: outputPath,
           outputStyle: 'compressed',
-          compassCommand: 'compass'
+          compassCommand: 'compass',
+          importPath: []
         };
 
         var compassOptions = merge(defaultOptions, options);
-        return compile(inputPath, compassOptions);
+
+        var treesToWatch = compassOptions.importPath.map(function (path) {
+          var relativePath = path.replace(process.cwd() + '/', '');
+          return relativePath;
+        })
+        treesToWatch.unshift(inputPath);
+        var merged = mergeTrees(treesToWatch, { overwrite: true });
+        return compile(merged, compassOptions);
       }
     });
   }
