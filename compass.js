@@ -21,7 +21,7 @@ Compass.prototype.compile = function(srcDir, destDir, options) {
   var cssDir  = path.join(destDir, 'assets');
 
   merge(options, {
-    cssDir: cssDir
+    cssDir: "'"+cssDir+"'"
   });
 
   var command = this.generateCommand(options);
