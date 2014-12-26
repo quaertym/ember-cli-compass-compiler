@@ -1,3 +1,7 @@
+## v0.0.18
+
+* Allow paths with whitespace
+
 ## v0.0.17
 
 * Avoid unnecessary compilation by compiling only when app/styles contents change
