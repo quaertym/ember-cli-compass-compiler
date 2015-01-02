@@ -21,12 +21,13 @@ module.exports = {
         var defaultOptions = {
           sassDir: inputPath,
           cssDir: outputPath,
+          importPath: '.',
           outputStyle: 'compressed',
           compassCommand: 'compass'
         };
 
         var compassOptions = merge(defaultOptions, options);
-        return compile(inputPath, compassOptions);
+        return compile(tree, compassOptions);
       }
     });
   }
