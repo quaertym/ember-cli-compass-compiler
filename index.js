@@ -1,6 +1,5 @@
 var compile    = require('./compiler');
 var merge      = require('lodash-node/modern/objects/merge');
-var pickFiles  = require('broccoli-static-compiler');
 var RSVP       = require('rsvp');
 var fs         = require('fs');
 var path       = require('path');
