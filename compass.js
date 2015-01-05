@@ -11,9 +11,9 @@ function Compass() {
 }
 
 Compass.prototype.generateCommand = function(options) {
-  var ignoredOptions = ['compassCommand'];
+  var ignoredOptions = ['compassCommand', 'files'];
   var args = dargs(options, ignoredOptions);
-  var command = [options.compassCommand, 'compile'].concat(args).join(' ');
+  var command = [options.compassCommand, 'compile'].concat(args).concat(options.files).join(' ');
   return command;
 };
 
