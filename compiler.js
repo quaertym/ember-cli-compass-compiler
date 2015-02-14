@@ -1,18 +1,20 @@
-var Writer  = require('broccoli-caching-writer');
+var CachingWriter  = require('broccoli-caching-writer');
 var Compass = require('./compass');
 
 module.exports = CompassCompiler;
-CompassCompiler.prototype = Object.create(Writer.prototype);
+CompassCompiler.prototype = Object.create(CachingWriter.prototype);
 CompassCompiler.prototype.constructor = CompassCompiler;
 
-function CompassCompiler(inputTree, options) {
-  this.options = options || {};
-  if (!(this instanceof CompassCompiler)) return new CompassCompiler(inputTree, options);
+function CompassCompiler(sourceTrees, options) {
+  if (!(this instanceof CompassCompiler)) return new CompassCompiler(sourceTrees, options);
 
-  this.inputTree = inputTree;
-  this.compass = new Compass();
+  CachingWriter.apply(this, arguments);
+
+  this.sourceTrees = sourceTrees;
+  this.options = options || {};
 }
 
 CompassCompiler.prototype.updateCache = function(srcDir, destDir) {
-  return this.compass.compile(srcDir, destDir, this.options);
+  compass = new Compass();
+  return compass.compile(srcDir, destDir, this.options);
 };
