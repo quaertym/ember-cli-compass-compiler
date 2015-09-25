@@ -29,9 +29,7 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
-    "broccoli-caching-writer": "^0.4.2",
-    "dargs": "^2.0.3",
-    "lodash-node": "^2.4.1",
-    "rsvp": "^3.0.13"
+    "broccoli-compass-compiler": "0.0.2",
+    "lodash-node": "^2.4.1"
   }
 }

@@ -1,5 +1,6 @@
-var compile    = require('./compiler');
-var merge      = require('lodash-node/modern/objects/merge');
+var path = require('path');
+var merge = require('lodash-node/modern/objects/merge');
+var compileCompass = require('broccoli-compass-compiler');
 
 module.exports = {
   name: 'ember-cli-compass-compiler',
@@ -19,14 +20,15 @@ module.exports = {
 
         var options = app.options.compassOptions || {};
         var defaultOptions = {
-          sassDir: inputPath,
-          cssDir: outputPath,
           outputStyle: 'compressed',
-          compassCommand: 'compass'
+          compassCommand: 'compass',
+          getCssDir: function(outputDir) {
+            return path.join(outputDir, outputPath);
+          }
         };
 
         var compassOptions = merge(defaultOptions, options);
-        return compile(inputPath, compassOptions);
+        return compileCompass([inputPath], compassOptions);
       }
     });
   }
