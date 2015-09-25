@@ -88,6 +88,18 @@ var app = new EmberApp({
 }
 ```
 
+### Import paths
+
+You can add additional scss import paths in your `compassOptions`. These paths will also be watched by broccoli and reload live.
+
+```javascript
+var app = new EmberApp({
+  compassOptions: {
+    importPath: ['/relative/path/to/vendor/scss/dir', '/other/full/path/to/css/dir']
+  }
+});
+```
+
 ### References
 
 * [compass](http://compass-style.org/)

@@ -25,14 +25,19 @@ module.exports = {
         var defaultOptions = {
           outputStyle: 'compressed',
           compassCommand: 'compass',
+          importPath: [],
           getCssDir: function(outputDir) {
             return path.join(outputDir, outputPath);
           }
         };
-
         var compassOptions = merge(defaultOptions, options);
 
-        var compassTree = compileCompass([inputPath], compassOptions);
+        var inputTrees = [inputPath];
+        if (compassOptions.importPath.length > 0) {
+          inputTrees = inputTrees.concat(compassOptions.importPath);
+        }
+
+        var compassTree = compileCompass(inputTrees, compassOptions);
         var outputTree = renameFiles(compassTree, {
           transformFilename: function(filename, basename, extname) {
             if (basename === 'app' && extname === '.css') {
