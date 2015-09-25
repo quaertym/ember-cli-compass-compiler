@@ -74,7 +74,7 @@ or use `importPath` option:
 ```javascript
 var app = new EmberApp({
   compassOptions: {
-    importPath: 'bower_components/bootstrap-sass-official/assets/stylesheets/'
+    importPath: ['bower_components/bootstrap-sass-official/assets/stylesheets']
   }
 });
 ```
