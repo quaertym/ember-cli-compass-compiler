@@ -1,13 +1,13 @@
 ## ember-cli-compass-compiler
 
-This addon adds [compass](http://compass-style.org/) compiler for [Ember CLI](http://www.ember-cli.com/).
+This addon adds [Compass](http://compass-style.org/) compiler for [Ember CLI](http://www.ember-cli.com/).
 
 ### Installation
 
-In your Ember CLI app (>= v0.0.37) run the following:
+In your Ember CLI app, run the following:
 
 ```bash
-npm install --save-dev ember-cli-compass-compiler
+ember install ember-cli-compass-compiler
 ```
 
 > **Note:** This addon will compile your `.scss` files, in addition to making Compass's
@@ -30,9 +30,11 @@ gem install compass
 
 After installation everything should work automatically.
 
-A file named `appname.scss` in your `app/styles` directory should be compiled into `appname.css` 
-with `ember build` or `ember serve` commands.
+`app.scss` in your `app/styles` directory is compiled into `assets/appname.css` 
+with `ember build` or `ember serve` commands. Other `.scss` files in `app/styles` 
+are compiled as well.
 
+> **Note:** Previous versions of this addon(< 0.1.0) was requiring the main `.scss` file to be named as `appname.scss`.
 
 To override default options of compass compiler, do the following in your Brocfile:
 
@@ -43,6 +45,47 @@ var app = new EmberApp({
     require: ['sass-css-importer', 'susy']
   }
 });
+```
+
+To use compass, import it in your `app.scss`:
+
+```scss
+@import "compass";
+
+.round-rect-button {
+  @include border-radius(4px, 4px); 
+}
+```
+
+To include other files, import them using the relative path:
+
+```scss
+@import "compass";
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+.badge-success {
+  @extend .badge;
+  background-color: $brand-success !important;
+}
+```
+
+or use `importPath` option:
+
+```javascript
+var app = new EmberApp({
+  compassOptions: {
+    importPath: 'bower_components/bootstrap-sass-official/assets/stylesheets/'
+  }
+});
+```
+```scss
+@import "compass";
+@import "bootstrap";
+
+.badge-success {
+  @extend .badge;
+  background-color: $brand-success !important;
+}
 ```
 
 ### References
