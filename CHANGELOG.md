@@ -1,6 +1,7 @@
 ## v0.2.0
 
 * Add support for `outputPaths`
+* **[BREAKING CHANGE]** Main `.scss` file should be named `app.scss` instead of `appname.scss`
 
 ## v0.1.2
 
