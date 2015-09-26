@@ -30,8 +30,9 @@
   "readmeFile": "README.md",
   "dependencies": {
     "broccoli-compass-compiler": "0.0.4",
-    "broccoli-rename-files": "0.0.3",
+    "broccoli-funnel": "^0.2.8",
+    "broccoli-merge-trees": "^0.2.3",
     "ember-cli-version-checker": "^1.1.4",
-    "lodash-node": "^2.4.1"
+    "merge": "^1.2.0"
   }
 }

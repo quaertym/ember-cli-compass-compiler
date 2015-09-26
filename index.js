@@ -1,12 +1,9 @@
 var path = require('path');
-var merge = require('lodash-node/modern/objects/merge');
+var merge = require('merge');
 var compileCompass = require('broccoli-compass-compiler');
-var renameFiles = require('broccoli-rename-files');
 var checker = require('ember-cli-version-checker');
-
-var removeLeadingSlash = function(string) {
-  return (string.length > 0 && string[0] === '/') ? string.slice(1) : string;
-};
+var mergeTrees = require('broccoli-merge-trees');
+var Funnel = require('broccoli-funnel');
 
 function CompassCompilerPlugin(optionsFn) {
   this.name = 'ember-cli-compass-compiler';
@@ -15,6 +12,10 @@ function CompassCompilerPlugin(optionsFn) {
 }
 
 CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, inputOptions) {
+
+  var removeLeadingSlash = function(string) {
+    return (string.length > 0 && string[0] === '/') ? string.slice(1) : string;
+  };
 
   // Normalize paths
   inputPath = removeLeadingSlash(inputPath);
@@ -30,27 +31,38 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
     }
   };
   var compassOptions = merge({}, defaultOptions, this.optionsFn(), inputOptions);
-  var projectName = compassOptions.outputFile;
-  delete compassOptions.outputFile;
 
-  // Watch importPath directories
-  var inputTrees = [inputPath];
-  if (compassOptions.importPath.length > 0) {
-    inputTrees = inputTrees.concat(compassOptions.importPath);
-  }
 
-  // Compile and rename app.css => project-name.scss
-  var compassTree = compileCompass(inputTrees, compassOptions);
-  var outputTree = renameFiles(compassTree, {
-    transformFilename: function(filename, basename, extname) {
-      if (basename === 'app' && extname === '.css') {
-        return filename.replace(basename, projectName);
-      }
-      return filename;
+  var outputPaths = compassOptions.outputPaths;
+  var trees = Object.keys(outputPaths).reduce(function(trees, file) {
+
+    // Watch importPath directories
+    var inputTrees = [inputPath];
+    if (compassOptions.importPath.length > 0) {
+      inputTrees = inputTrees.concat(compassOptions.importPath);
     }
-  });
 
-  return outputTree;
+    // Compile
+    var compassTree = compileCompass(inputTrees, compassOptions);
+
+    // Rename and move files
+    var extension = path.extname(outputPaths[file]); // compiled asset extension
+    var defaultPath = path.join(outputPath, file + extension); // current path of the asset
+    var outputFileName = path.basename(outputPaths[file], extension) + extension; // new name for asset
+    var outputDir = removeLeadingSlash(path.dirname(outputPaths[file])); // new directory for asset
+    var node = new Funnel(compassTree, {
+      destDir: outputDir,
+      files: [defaultPath],
+      getDestinationPath: function(relativePath) {
+        if (relativePath === defaultPath) { return outputFileName; }
+        return relativePath;
+      }
+    });
+    trees.push(node);
+    return trees;
+  }, []);
+
+  return mergeTrees(trees);
 };
 
 module.exports = {
@@ -77,8 +89,6 @@ module.exports = {
   },
 
   compassOptions: function () {
-    var options = (this.app && this.app.options.compassOptions) || {};
-    options.outputFile = options.outputFile || this.app.project.name();
-    return options;
+    return (this.app && this.app.options.compassOptions) || {};
   }
 };
