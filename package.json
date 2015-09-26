@@ -29,7 +29,7 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
-    "broccoli-compass-compiler": "0.0.2",
+    "broccoli-compass-compiler": "0.0.3",
     "broccoli-rename-files": "0.0.3",
     "ember-cli-version-checker": "^1.1.4",
     "lodash-node": "^2.4.1"
