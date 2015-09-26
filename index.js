@@ -78,7 +78,7 @@ module.exports = {
 
   compassOptions: function () {
     var options = (this.app && this.app.options.compassOptions) || {};
-    options.outputFile = options.outputFile || this.project.name() + '.css';
+    options.outputFile = options.outputFile || this.app.project.name();
     return options;
   }
 };
