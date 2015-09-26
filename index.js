@@ -2,6 +2,7 @@ var path = require('path');
 var merge = require('lodash-node/modern/objects/merge');
 var compileCompass = require('broccoli-compass-compiler');
 var renameFiles = require('broccoli-rename-files');
+var checker = require('ember-cli-version-checker');
 
 var removeLeadingSlash = function(string) {
   return (string.length > 0 && string[0] === '/') ? string.slice(1) : string;
@@ -55,10 +56,24 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 module.exports = {
   name: 'Ember CLI Compass Compiler',
 
+  shouldSetupRegistryInIncluded: function() {
+    return !checker.isAbove(this, '0.2.0');
+  },
+
+  setupPreprocessorRegistry: function(type, registry) {
+    registry.add('css', new CompassCompilerPlugin(this.compassOptions.bind(this)));
+
+    // prevent conflict with broccoli-sass if it's installed
+    if (registry.remove) registry.remove('css', 'broccoli-sass');
+  },
+
   included: function(app) {
     this.app = app;
     this._super.included.apply(this, arguments);
-    app.registry.add('css', new CompassCompilerPlugin(this.compassOptions.bind(this)));
+
+    if (this.shouldSetupRegistryInIncluded()) {
+      this.setupPreprocessorRegistry('parent', app.registry);
+    }
   },
 
   compassOptions: function () {
