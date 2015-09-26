@@ -1,3 +1,13 @@
+## v0.2.0
+
+* Add support for `outputPaths`
+
+## v0.1.2
+
+* Use `setupPreprocessorRegistry` hook
+* Watch `importPath` directories
+* Move dependencies into separate modules: [broccoli-compass-compiler](https://github.com/quaertym/broccoli-compass-compiler) & [compass-compile](https://github.com/quaertym/compass-compile)
+
 ## v0.0.18
 
 * Allow paths with whitespace
