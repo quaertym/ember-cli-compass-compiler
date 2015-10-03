@@ -1,3 +1,8 @@
+## v0.3.0
+
+* Update broccoli-compass-compiler to `v0.0.5`
+* `importPath` directories are now added to watch by `broccoli-compass-compiler`
+
 ## v0.2.0
 
 * Add support for `outputPaths`
