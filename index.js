@@ -36,11 +36,8 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
   var outputPaths = compassOptions.outputPaths;
   var trees = Object.keys(outputPaths).reduce(function(trees, file) {
 
-    // Watch importPath directories
+    // Watch inputTrees and compassOptions.importPath directories
     var inputTrees = [inputPath];
-    if (compassOptions.importPath.length > 0) {
-      inputTrees = inputTrees.concat(compassOptions.importPath);
-    }
 
     // Compile
     var compassTree = compileCompass(inputTrees, compassOptions);
