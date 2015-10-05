@@ -27,7 +27,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
     compassCommand: 'compass',
     importPath: [],
     getCssDir: function(outputDir) {
-      return path.join(outputDir, outputPath);
+      return '"' + path.join(outputDir, outputPath) + '"';
     }
   };
   var compassOptions = merge({}, defaultOptions, this.optionsFn(), inputOptions);
