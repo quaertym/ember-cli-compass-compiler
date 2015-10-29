@@ -44,14 +44,15 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 
     // Rename and move files
     var extension = path.extname(outputPaths[file]); // compiled asset extension
-    var defaultPath = path.join(outputPath, file + extension); // current path of the asset
+    var fileName = file + extension; // current file name
     var outputFileName = path.basename(outputPaths[file], extension) + extension; // new name for asset
     var outputDir = removeLeadingSlash(path.dirname(outputPaths[file])); // new directory for asset
     var node = new Funnel(compassTree, {
+      srcDir: outputPath,
       destDir: outputDir,
-      files: [defaultPath],
+      files: [fileName],
       getDestinationPath: function(relativePath) {
-        if (relativePath === defaultPath) { return outputFileName; }
+        if (relativePath === path.join(this.destDir, fileName)) { return path.join(this.destDir, outputFileName); }
         return relativePath;
       }
     });
