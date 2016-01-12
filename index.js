@@ -4,6 +4,7 @@ var compileCompass = require('broccoli-compass-compiler');
 var checker = require('ember-cli-version-checker');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
+var glob = require('glob');
 
 function CompassCompilerPlugin(optionsFn) {
   this.name = 'ember-cli-compass-compiler';
