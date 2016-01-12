@@ -72,11 +72,13 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
     var outputFileName = path.basename(outputPaths[file], extension) + extension; // new name for asset
     var outputDir = removeLeadingSlash(path.dirname(outputPaths[file])); // new directory for asset
     var node = new Funnel(compassTree, {
-      srcDir: outputPath,
       destDir: outputDir,
       files: [fileName],
       getDestinationPath: function(relativePath) {
-        if (relativePath === path.join(this.destDir, fileName)) { return path.join(this.destDir, outputFileName); }
+        if (relativePath === path.join(this.destDir, fileName)) {
+          return path.join(this.destDir, outputFileName);
+        }
+
         return relativePath;
       }
     });
