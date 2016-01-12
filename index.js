@@ -35,7 +35,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 
 
   var outputPaths = compassOptions.outputPaths;
-  var trees = Object.keys(outputPaths).reduce(function(trees, file) {
+  var trees = Object.keys(outputPaths).map(function(file) {
 
     // Watch inputTrees and compassOptions.importPath directories
     var inputTrees = [tree];
@@ -82,9 +82,8 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
         return relativePath;
       }
     });
-    trees.push(node);
-    return trees;
-  }, []);
+    return node;
+  });
 
   return mergeTrees(trees);
 };
