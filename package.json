@@ -26,6 +26,9 @@
     "url": "https://github.com/quaertym/ember-cli-compass-compiler/issues"
   },
   "author": "Emre Unal",
+  "contributors": [
+    "Andrew Jo <andrewjo@gmail.com> (https://github.com/AndrewJo)"
+  ],
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
