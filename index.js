@@ -43,7 +43,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
     // Define getSassDir function if not overridden by user
     if (!compassOptions.getSassDir) {
       compassOptions.getSassDir = function(inputTrees, inputPaths) {
-        return path.dirname(inputPaths.reduce(function(pathFound, currentPath) {
+        return inputPaths.reduce(function(pathFound, currentPath) {
           // Return early if input path is already found
           if (pathFound !== '') {
             return pathFound;
@@ -55,11 +55,11 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 
           // Found the file we're looking for
           if (result.length > 0) {
-            return result[0];
+            return path.dirname(result[0]);
           }
 
           return '';
-        }, ''));
+        }, '');
       }
     }
 
