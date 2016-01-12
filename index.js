@@ -60,7 +60,7 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 
           return '';
         }, '');
-      }
+      };
     }
 
     // Compile
