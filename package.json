@@ -33,6 +33,7 @@
     "broccoli-funnel": "0.2.11",
     "broccoli-merge-trees": "^0.2.3",
     "ember-cli-version-checker": "^1.1.4",
+    "glob": "^6.0.4",
     "merge": "^1.2.0"
   }
 }
