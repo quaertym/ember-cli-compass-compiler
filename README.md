@@ -13,7 +13,7 @@ ember install ember-cli-compass-compiler
 > **Note:** This addon will compile your `.scss` files, in addition to making Compass's
   libraries available to your project. This means you **do not** need additional broccoli libraries
   for compiling sass, such as `broccoli-sass`.
-  
+
 > Be sure to remove all such libraries from your project when using `ember-cli-compass-compiler`.
 
 ### Requirements
@@ -30,8 +30,8 @@ gem install compass
 
 After installation everything should work automatically.
 
-`app.scss` in your `app/styles` directory is compiled into `assets/appname.css` 
-with `ember build` or `ember serve` commands. Other `.scss` files in `app/styles` 
+`app.scss` in your `app/styles` directory is compiled into `assets/appname.css`
+with `ember build` or `ember serve` commands. Other `.scss` files in `app/styles`
 are compiled as well.
 
 > **Note:** Previous versions of this addon(< 0.1.0) was requiring the main `.scss` file to be named as `appname.scss`.
@@ -53,7 +53,7 @@ To use compass, import it in your `app.scss`:
 @import "compass";
 
 .round-rect-button {
-  @include border-radius(4px, 4px); 
+  @include border-radius(4px, 4px);
 }
 ```
 
@@ -99,6 +99,68 @@ var app = new EmberApp({
   }
 });
 ```
+
+### Ember CLI Addon Usage
+
+If you are developing an Ember CLI Addon, you must follow these additional
+steps:
+
+1. Include your styles in `addon/styles/addon.scss` (`.sass` works as well)
+
+2. You can either install `ember-cli-compass-compiler` via NPM:
+
+  ```bash
+  $ npm install --save ember-cli-compass-compiler
+  ```
+
+  or make sure to move it to `dependencies` from `devDependencies` in your
+  `package.json` if already installed via
+  `ember install ember-cli-compass-compiler` command:
+
+  ```javascript
+  "dependencies": {
+    ...
+    "ember-cli-compass-compiler": "^0.4.0",
+    ...
+  }
+  ```
+
+  > **Important:** If you omit this step, Ember CLI will compile
+  `tests/dummy/app/styles/app.scss` for your dummy test application but not
+  your primary stylesheet at `addon/styles/addon.css`.
+
+3. In `./index.js` of your project, make sure an `included` function is defined:
+
+  ```javascript
+  'use strict'
+
+  module.exports = {
+    name: 'my-addon',
+    included: function(app) {
+      this._super.included(app);
+
+      // OPTIONAL: import your addon dependencies from bower_components
+      // app.import(`${app.bowerDirectory}/bootstrap/dist/js/bootstrap.js`);
+    }
+  };
+  ```
+
+  Without this, Ember CLI will throw an error when trying to serve the dummy
+  test application or building distributables:
+
+  ```
+  Cannot read property 'compassOptions' of undefined
+  TypeError: Cannot read property 'compassOptions' of undefined
+  ```
+
+4. Ensure your dummy test application contains `app.scss`.
+
+5. Run `ember build`. Your stylesheet at `addon/styles/addon.scss` will be
+  compiled to `dist/assets/vendor.css` and your test app's stylesheet at
+  `tests/dummy/app/styles/app.scss` will be compiled to `dist/assets/dummy.css`.
+
+For more information, refer to [Developing Addons and Blueprints](http://ember-cli.com/extending/#developing-addons-and-blueprints)
+section on the [Ember CLI website](http://ember-cli.com).
 
 ### References
 
