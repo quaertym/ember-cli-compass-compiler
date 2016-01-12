@@ -39,6 +39,29 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
     // Watch inputTrees and compassOptions.importPath directories
     var inputTrees = [tree];
 
+    // Define getSassDir function if not overridden by user
+    if (!compassOptions.getSassDir) {
+      compassOptions.getSassDir = function(inputTrees, inputPaths) {
+        return path.dirname(inputPaths.reduce(function(pathFound, currentPath) {
+          // Return early if input path is already found
+          if (pathFound !== '') {
+            return pathFound;
+          }
+
+          // Filter pattern for .sass or .scss files
+          var pattern = path.join(currentPath, inputPath, file + '.s@(a|c)ss');
+          var result = glob.sync(pattern);
+
+          // Found the file we're looking for
+          if (result.length > 0) {
+            return result[0];
+          }
+
+          return '';
+        }, ''));
+      }
+    }
+
     // Compile
     var compassTree = compileCompass(inputTrees, compassOptions);
 
