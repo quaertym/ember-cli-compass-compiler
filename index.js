@@ -113,6 +113,12 @@ module.exports = {
   },
 
   compassOptions: function () {
-    return (this.app && this.app.options.compassOptions) || {};
+    var app = this.app;
+
+    if (!app.options && app.app) {
+      app = app.app;
+    }
+
+    return (app && app.options && app.options.compassOptions) || {};
   }
 };
