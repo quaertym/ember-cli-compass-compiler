@@ -115,7 +115,7 @@ module.exports = {
   compassOptions: function () {
     var app = this.app;
 
-    if (!app.options && app.app) {
+    if (app && !app.options && app.app) {
       app = app.app;
     }
 
