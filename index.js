@@ -4,6 +4,7 @@ var compileCompass = require('broccoli-compass-compiler');
 var checker = require('ember-cli-version-checker');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
+var glob = require('glob');
 
 function CompassCompilerPlugin(optionsFn) {
   this.name = 'ember-cli-compass-compiler';
@@ -34,10 +35,33 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
 
 
   var outputPaths = compassOptions.outputPaths;
-  var trees = Object.keys(outputPaths).reduce(function(trees, file) {
+  var trees = Object.keys(outputPaths).map(function(file) {
 
     // Watch inputTrees and compassOptions.importPath directories
-    var inputTrees = [inputPath];
+    var inputTrees = [tree];
+
+    // Define getSassDir function if not overridden by user
+    if (!compassOptions.getSassDir) {
+      compassOptions.getSassDir = function(inputTrees, inputPaths) {
+        return inputPaths.reduce(function(pathFound, currentPath) {
+          // Return early if input path is already found
+          if (pathFound !== '') {
+            return pathFound;
+          }
+
+          // Filter pattern for .sass or .scss files
+          var pattern = path.join(currentPath, inputPath, file + '.s@(a|c)ss');
+          var result = glob.sync(pattern);
+
+          // Found the file we're looking for
+          if (result.length > 0) {
+            return path.dirname(result[0]);
+          }
+
+          return '';
+        }, '');
+      };
+    }
 
     // Compile
     var compassTree = compileCompass(inputTrees, compassOptions);
@@ -52,13 +76,15 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
       destDir: outputDir,
       files: [fileName],
       getDestinationPath: function(relativePath) {
-        if (relativePath === path.join(this.destDir, fileName)) { return path.join(this.destDir, outputFileName); }
+        if (relativePath === path.join(this.destDir, fileName)) {
+          return path.join(this.destDir, outputFileName);
+        }
+
         return relativePath;
       }
     });
-    trees.push(node);
-    return trees;
-  }, []);
+    return node;
+  });
 
   return mergeTrees(trees);
 };
@@ -87,6 +113,12 @@ module.exports = {
   },
 
   compassOptions: function () {
-    return (this.app && this.app.options.compassOptions) || {};
+    var app = this.app;
+
+    if (app && !app.options && app.app) {
+      app = app.app;
+    }
+
+    return (app && app.options && app.options.compassOptions) || {};
   }
 };
