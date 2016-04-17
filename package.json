@@ -32,7 +32,7 @@
   "license": "MIT",
   "readmeFile": "README.md",
   "dependencies": {
-    "broccoli-compass-compiler": "0.0.5",
+    "broccoli-compass-compiler": "0.0.6",
     "broccoli-funnel": "1.0.1",
     "broccoli-merge-trees": "1.1.1",
     "ember-cli-version-checker": "^1.1.4",
