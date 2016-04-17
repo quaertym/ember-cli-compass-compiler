@@ -76,8 +76,8 @@ CompassCompilerPlugin.prototype.toTree = function(tree, inputPath, outputPath, i
       destDir: outputDir,
       files: [fileName],
       getDestinationPath: function(relativePath) {
-        if (relativePath === path.posix.join(this.destDir, fileName)) {
-          return path.posix.join(this.destDir, outputFileName);
+        if (relativePath === fileName) {
+          return outputFileName;
         }
 
         return relativePath;
